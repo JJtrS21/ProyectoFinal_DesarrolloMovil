@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFDE7">
+
+
+
+    <TextView
+        android:id="@+id/tvTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Personalizado"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:id="@+id/tvLabelOperaciones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Operaciones"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/tvTitulo"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="24dp" />
+
+    <CheckBox
+        android:id="@+id/cbSuma"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Suma"
+        android:textSize="16sp"
+        android:checked="true"
+        app:layout_constraintTop_toBottomOf="@id/tvLabelOperaciones"
+        app:layout_constraintStart_toStartOf="@id/tvLabelOperaciones"
+        android:layout_marginTop="8dp" />
+
+    <CheckBox
+        android:id="@+id/cbResta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Resta"
+        android:textSize="16sp"
+        android:checked="true"
+        app:layout_constraintTop_toBottomOf="@id/cbSuma"
+        app:layout_constraintStart_toStartOf="@id/cbSuma"
+        android:layout_marginTop="4dp" />
+
+    <CheckBox
+        android:id="@+id/cbMultiplicacion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Multiplicación"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/cbResta"
+        app:layout_constraintStart_toStartOf="@id/cbResta"
+        android:layout_marginTop="4dp" />
+
+    <CheckBox
+        android:id="@+id/cbDivision"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="División"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/cbMultiplicacion"
+        app:layout_constraintStart_toStartOf="@id/cbMultiplicacion"
+        android:layout_marginTop="4dp" />
+
+    <TextView
+        android:id="@+id/tvLabelDificultad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="216dp"
+        android:layout_marginTop="24dp"
+        android:text="Dificultad"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitulo" />
+
+    <RadioGroup
+        android:id="@+id/rgDificultad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toStartOf="@id/tvLabelDificultad"
+        app:layout_constraintTop_toBottomOf="@id/tvLabelDificultad">
+
+        <RadioButton
+            android:id="@+id/rbFacil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="🌱 Fácil"
+            android:textSize="16sp" />
+
+        <RadioButton
+            android:id="@+id/rbMedio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🌿 Medio"
+            android:textSize="16sp" />
+
+        <RadioButton
+            android:id="@+id/rbDificil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🌳 Difícil"
+            android:textSize="16sp" />
+
+    </RadioGroup>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
