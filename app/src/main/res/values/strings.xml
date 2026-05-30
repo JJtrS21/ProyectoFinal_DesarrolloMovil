@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">ProyectoFinal</string>
+
+    <string name="math_escape">Math Escape:</string>
+    <string name="aventuras_con_n_meros">¡Aventuras con Números!</string>
+    <string name="aventuras_con_10_n_meros">¡Aventuras con\nNúmeros!</string>
+
+    <string name="boton_jugar">Jugar</string>
+    <string name="para_padres">Para Padres</string>
+    <string name="btn_padres_desc">Botón para padres</string>
 </resources>
