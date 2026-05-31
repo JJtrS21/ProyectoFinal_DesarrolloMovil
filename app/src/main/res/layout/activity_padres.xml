@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/summer_night_forest"
+    tools:context=".Padres">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnRegresar"
+        android:layout_width="58dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="18dp"
+        android:contentDescription="Regresar"
+        android:insetLeft="0dp"
+        android:insetTop="0dp"
+        android:insetRight="0dp"
+        android:insetBottom="0dp"
+        android:text=""
+        app:backgroundTint="#6F687C"
+        app:cornerRadius="29dp"
+        app:icon="@drawable/ic_back_curve"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp"
+        app:iconSize="34dp"
+        app:iconTint="@android:color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeWidth="0dp" />
+
+    <com.fei.proyectofinal.OutlinedTextView
+        android:id="@+id/tituloPadres"
+        android:layout_width="460dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/fredoka_bold"
+        android:gravity="center"
+        android:text="Menú Para Padres"
+        android:textColor="@android:color/white"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/zonaIzquierda"
+        android:layout_width="285dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="34dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="22dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tituloPadres">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="62dp"
+            android:layout_marginBottom="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="205dp"
+                android:layout_height="62dp"
+                android:fontFamily="@font/fredoka_bold"
+                android:insetLeft="0dp"
+                android:insetTop="0dp"
+                android:insetRight="0dp"
+                android:insetBottom="0dp"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="8dp"
+                android:text="Perfil 1"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="17sp"
+                app:backgroundTint="#6A4BB3"
+                app:cornerRadius="18dp"
+                app:icon="@drawable/perfil_a"
+                app:iconGravity="textStart"
+                app:iconPadding="8dp"
+                app:iconSize="44dp"
+                app:iconTint="@null"
+                app:strokeColor="@android:color/white"
+                app:strokeWidth="3dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="62dp"
+                android:layout_height="62dp"
+                android:layout_marginStart="10dp"
+                android:contentDescription="Editar perfil"
+                android:insetLeft="0dp"
+                android:insetTop="0dp"
+                android:insetRight="0dp"
+                android:insetBottom="0dp"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:text=""
+                app:backgroundTint="#6A4BB3"
+                app:cornerRadius="31dp"
+                app:icon="@android:drawable/ic_menu_manage"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                app:iconSize="30dp"
+                app:iconTint="@android:color/white"
+                app:strokeColor="@android:color/white"
+                app:strokeWidth="3dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="62dp"
+            android:layout_marginBottom="14dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="205dp"
+                android:layout_height="62dp"
+                android:fontFamily="@font/fredoka_bold"
+                android:insetLeft="0dp"
+                android:insetTop="0dp"
+                android:insetRight="0dp"
+                android:insetBottom="0dp"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="8dp"
+                android:text="Perfil 2"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="17sp"
+                app:backgroundTint="#6A4BB3"
+                app:cornerRadius="18dp"
+                app:icon="@drawable/perfil_b"
+                app:iconGravity="textStart"
+                app:iconPadding="8dp"
+                app:iconSize="44dp"
+                app:iconTint="@null"
+                app:strokeColor="@android:color/white"
+                app:strokeWidth="3dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="62dp"
+                android:layout_height="62dp"
+                android:layout_marginStart="10dp"
+                android:contentDescription="Editar perfil"
+                android:insetLeft="0dp"
+                android:insetTop="0dp"
+                android:insetRight="0dp"
+                android:insetBottom="0dp"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:text=""
+                app:backgroundTint="#6A4BB3"
+                app:cornerRadius="31dp"
+                app:icon="@android:drawable/ic_menu_manage"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                app:iconSize="30dp"
+                app:iconTint="@android:color/white"
+                app:strokeColor="@android:color/white"
+                app:strokeWidth="3dp" />
+
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAgregarPerfil"
+            android:layout_width="68dp"
+            android:layout_height="68dp"
+            android:fontFamily="@font/fredoka_bold"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            android:text="+"
+            android:textColor="@android:color/white"
+            android:textSize="32sp"
+            app:backgroundTint="#6A4BB3"
+            app:cornerRadius="22dp"
+            app:strokeColor="@android:color/white"
+            app:strokeWidth="3dp" />
+
+    </LinearLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/panelDerecho"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="18dp"
+        app:cardBackgroundColor="#DDEEEEEE"
+        app:cardCornerRadius="28dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/zonaIzquierda"
+        app:layout_constraintTop_toBottomOf="@id/tituloPadres">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="34dp"
+            android:paddingTop="14dp"
+            android:paddingEnd="34dp"
+            android:paddingBottom="12dp">
+
+            <TextView
+                android:id="@+id/txtTituloFormulario"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/fredoka_bold"
+                android:gravity="center"
+                android:text="Crear Perfil"
+                android:textColor="@android:color/black"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/lblNombre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/fredoka_bold"
+                android:text="Nombre:"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtTituloFormulario" />
+
+            <EditText
+                android:id="@+id/edtNombrePerfil"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="0dp"
+                android:backgroundTint="#6A4BB3"
+                android:hint="Nombre del perfil"
+                android:inputType="textPersonName"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:singleLine="true"
+                android:textColor="@android:color/black"
+                android:textColorHint="#777777"
+                android:textSize="19sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/lblNombre" />
+
+            <TextView
+                android:id="@+id/lblFoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/fredoka_bold"
+                android:text="Foto:"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edtNombrePerfil" />
+
+            <ImageView
+                android:id="@+id/imgAvatarFormulario"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="18dp"
+                android:contentDescription="Avatar del perfil"
+                android:src="@drawable/perfil_a"
+                app:layout_constraintBottom_toTopOf="@id/layoutBotonesFormulario"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/lblFoto"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <LinearLayout
+                android:id="@+id/layoutBotonesFormulario"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnGuardarPerfil"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/fredoka_bold"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:minWidth="0dp"
+                    android:minHeight="48dp"
+                    android:paddingStart="2dp"
+                    android:paddingEnd="2dp"
+                    android:singleLine="true"
+                    android:text="Guardar"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="11sp"
+                    app:backgroundTint="#6A4BB3"
+                    app:cornerRadius="16dp"
+                    app:strokeColor="@android:color/white"
+                    app:strokeWidth="2dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCancelarFormulario"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/fredoka_bold"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:minWidth="0dp"
+                    android:minHeight="48dp"
+                    android:paddingStart="2dp"
+                    android:paddingEnd="2dp"
+                    android:singleLine="true"
+                    android:text="Regresar"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="11sp"
+                    app:backgroundTint="#6A4BB3"
+                    app:cornerRadius="16dp"
+                    app:strokeColor="@android:color/white"
+                    app:strokeWidth="2dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnEliminarPerfil"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/fredoka_bold"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:minWidth="0dp"
+                    android:minHeight="48dp"
+                    android:paddingStart="2dp"
+                    android:paddingEnd="2dp"
+                    android:singleLine="true"
+                    android:text="Eliminar"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="11sp"
+                    app:backgroundTint="#9E2A2A"
+                    app:cornerRadius="16dp"
+                    app:strokeColor="@android:color/white"
+                    app:strokeWidth="2dp" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

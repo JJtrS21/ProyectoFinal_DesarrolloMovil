@@ -8,4 +8,14 @@
     <string name="boton_jugar">Jugar</string>
     <string name="para_padres">Para Padres</string>
     <string name="btn_padres_desc">Botón para padres</string>
+    <string name="regresar">Regresar</string>
+    <string name="men_para_padres">Menú Para Padres</string>
+    <string name="selecciona_un_perfil">Selecciona un perfil</string>
+    <string name="aqu_se_mostrar_el_historial_de_partidas_del_perfil_seleccionado">Aquí se mostrará el historial de partidas del perfil seleccionado.</string>
+    <string name="crear_perfil">Crear Perfil</string>
+    <string name="nombre">Nombre:</string>
+    <string name="foto">Foto:</string>
+    <string name="nombre_del_perfil">Nombre del perfil</string>
+    <string name="avatar_del_perfil">Avatar del perfil</string>
+    <string name="guardar">Guardar</string>
 </resources>
