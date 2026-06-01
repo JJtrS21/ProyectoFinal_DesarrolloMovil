@@ -1,123 +1,473 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFDE7">
+    android:fillViewport="true">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/summer_camp_forest">
 
-
-    <TextView
-        android:id="@+id/tvTitulo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Personalizado"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
-
-    <TextView
-        android:id="@+id/tvLabelOperaciones"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Operaciones"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/tvTitulo"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="24dp"
-        android:layout_marginStart="24dp" />
-
-    <CheckBox
-        android:id="@+id/cbSuma"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Suma"
-        android:textSize="16sp"
-        android:checked="true"
-        app:layout_constraintTop_toBottomOf="@id/tvLabelOperaciones"
-        app:layout_constraintStart_toStartOf="@id/tvLabelOperaciones"
-        android:layout_marginTop="8dp" />
-
-    <CheckBox
-        android:id="@+id/cbResta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Resta"
-        android:textSize="16sp"
-        android:checked="true"
-        app:layout_constraintTop_toBottomOf="@id/cbSuma"
-        app:layout_constraintStart_toStartOf="@id/cbSuma"
-        android:layout_marginTop="4dp" />
-
-    <CheckBox
-        android:id="@+id/cbMultiplicacion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Multiplicación"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/cbResta"
-        app:layout_constraintStart_toStartOf="@id/cbResta"
-        android:layout_marginTop="4dp" />
-
-    <CheckBox
-        android:id="@+id/cbDivision"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="División"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/cbMultiplicacion"
-        app:layout_constraintStart_toStartOf="@id/cbMultiplicacion"
-        android:layout_marginTop="4dp" />
-
-    <TextView
-        android:id="@+id/tvLabelDificultad"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="216dp"
-        android:layout_marginTop="24dp"
-        android:text="Dificultad"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitulo" />
-
-    <RadioGroup
-        android:id="@+id/rgDificultad"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
-        app:layout_constraintStart_toStartOf="@id/tvLabelDificultad"
-        app:layout_constraintTop_toBottomOf="@id/tvLabelDificultad">
-
-        <RadioButton
-            android:id="@+id/rbFacil"
+        <TextView
+            android:id="@+id/tvTitulo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="🌱 Fácil"
-            android:textSize="16sp" />
+            android:text="Personalizado"
+            android:textSize="36sp"
+            android:textColor="@color/tertiary_fixed"
+            android:fontFamily="@font/fredoka_one"
+            android:shadowColor="@color/text_border"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp" />
 
-        <RadioButton
-            android:id="@+id/rbMedio"
+    <!-- ========== BLOQUE OPERACIONES ========== -->
+        <LinearLayout
+            android:id="@+id/bloqueOperaciones"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="🌿 Medio"
-            android:textSize="16sp" />
+            android:orientation="vertical"
+            android:background="@drawable/marco_formulario"
+            android:padding="12dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/tvTitulo"
+            app:layout_constraintStart_toStartOf="parent">
 
-        <RadioButton
-            android:id="@+id/rbDificil"
+            <TextView
+                android:id="@+id/tvLabelOperaciones"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Operaciones Incluidas"
+                android:textSize="18sp"
+                android:textColor="@color/on_primary"
+                android:fontFamily="@font/fredoka_one"
+                android:shadowColor="@color/text_border"
+                android:shadowRadius="4" />
+
+            <CheckBox
+                android:id="@+id/cbSuma"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+ Suma"
+                android:textSize="16sp"
+                android:textColor="@color/text_border"
+                android:fontFamily="@font/fredoka_one"
+                android:checked="true"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:layout_marginTop="-4dp" />
+
+            <CheckBox
+                android:id="@+id/cbResta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="- Resta"
+                android:textSize="16sp"
+                android:textColor="@color/text_border"
+                android:fontFamily="@font/fredoka_one"
+                android:checked="true"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:layout_marginTop="-10dp"/>
+
+            <CheckBox
+                android:id="@+id/cbMultiplicacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="× Multiplicación"
+                android:textSize="16sp"
+                android:textColor="@color/text_border"
+                android:fontFamily="@font/fredoka_one"
+                android:checked="true"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:layout_marginTop="-10dp"/>
+
+            <CheckBox
+                android:id="@+id/cbDivision"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="÷ División"
+                android:textSize="16sp"
+                android:textColor="@color/text_border"
+                android:fontFamily="@font/fredoka_one"
+                android:checked="true"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:layout_marginTop="-10dp"/>
+
+        </LinearLayout>
+
+        <!-- ========== BLOQUE DIFICULTAD ========== -->
+        <LinearLayout
+            android:id="@+id/bloqueDificultad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="🌳 Difícil"
-            android:textSize="16sp" />
+            android:orientation="vertical"
+            android:background="@drawable/marco_formulario"
+            android:padding="12dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/tvTitulo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-    </RadioGroup>
+            <!-- Título -->
+            <TextView
+                android:id="@+id/tvLabelDificultad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dificultad"
+                android:textSize="18sp"
+                android:textColor="@color/on_primary"
+                android:fontFamily="@font/fredoka_one"
+                android:shadowColor="@color/text_border"
+                android:shadowRadius="4" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <!-- Fila de botones horizontales -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+
+                <Button
+                    android:id="@+id/btnFacil"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="🌱 Fácil"
+                    android:textSize="14sp"
+                    android:backgroundTint="@color/primary"
+                    android:textColor="@color/on_primary"
+                    android:fontFamily="@font/fredoka_one"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp" />
+
+                <Button
+                    android:id="@+id/btnMedio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="🌿 Medio"
+                    android:textSize="14sp"
+                    android:backgroundTint="@color/primary_container"
+                    android:textColor="@color/on_surface"
+                    android:fontFamily="@font/fredoka_one"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp" />
+
+                <Button
+                    android:id="@+id/btnDificil"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="🌳 Difícil"
+                    android:textSize="14sp"
+                    android:backgroundTint="@color/primary_container"
+                    android:textColor="@color/on_surface"
+                    android:fontFamily="@font/fredoka_one"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- ========== BLOQUE TIEMPO ========== -->
+        <LinearLayout
+            android:id="@+id/bloqueTiempo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/marco_formulario"
+            android:padding="12dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/bloqueDificultad"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/bloqueOperaciones">
+
+            <!-- Título -->
+            <TextView
+                android:id="@+id/tvLabelTiempo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tiempo"
+                android:textSize="18sp"
+                android:textColor="@color/on_primary"
+                android:fontFamily="@font/fredoka_one"
+                android:shadowColor="@color/text_border"
+                android:shadowRadius="4" />
+
+            <!-- Fila de botones horizontales -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+
+                <Button
+                    android:id="@+id/btnSinLimite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="🐢 Sin límite"
+                    android:textSize="14sp"
+                    android:backgroundTint="@color/primary"
+                    android:textColor="@color/on_primary"
+                    android:fontFamily="@font/fredoka_one"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp" />
+
+                <Button
+                    android:id="@+id/btn30seg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="🐇 30 seg"
+                    android:textSize="14sp"
+                    android:backgroundTint="@color/primary_container"
+                    android:textColor="@color/on_surface"
+                    android:fontFamily="@font/fredoka_one"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp" />
+
+                <Button
+                    android:id="@+id/btn15seg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="⚡ 15 seg"
+                    android:textSize="14sp"
+                    android:backgroundTint="@color/primary_container"
+                    android:textColor="@color/on_surface"
+                    android:fontFamily="@font/fredoka_one"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- ========== BLOQUE TIPOS DE PREGUNTAS ========== -->
+        <LinearLayout
+            android:id="@+id/bloqueTiposPreguntas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/marco_formulario"
+            android:padding="12dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/tvTitulo"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:id="@+id/tvLabelTipos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tipo de Preguntas"
+                android:textSize="18sp"
+                android:textColor="@color/on_primary"
+                android:fontFamily="@font/fredoka_one"
+                android:shadowColor="@color/text_border"
+                android:shadowRadius="4" />
+
+            <CheckBox
+                android:id="@+id/cbOperaciones"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Operaciones"
+                android:textSize="16sp"
+                android:textColor="@color/text_border"
+                android:fontFamily="@font/fredoka_one"
+                android:checked="true"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:layout_marginTop="-4dp" />
+
+            <CheckBox
+                android:id="@+id/cbProblemas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Problemas"
+                android:textSize="16sp"
+                android:textColor="@color/text_border"
+                android:fontFamily="@font/fredoka_one"
+                android:checked="true"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:layout_marginTop="-10dp" />
+
+        </LinearLayout>
+
+        <!-- ========== BLOQUE AYUDA ========== -->
+        <LinearLayout
+            android:id="@+id/bloqueAyuda"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:orientation="vertical"
+            android:background="@drawable/marco_formulario"
+            android:padding="12dp"
+            android:layout_marginTop="5dp"
+            app:layout_constraintTop_toBottomOf="@id/bloqueTiposPreguntas"
+            app:layout_constraintEnd_toEndOf="@+id/bloqueTiposPreguntas"
+            app:layout_constraintStart_toStartOf="@+id/bloqueTiposPreguntas"
+            app:layout_constraintBottom_toBottomOf="@id/bloqueOperaciones">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <Button
+                    android:id="@+id/btnAyuda"
+                    android:layout_width="54dp"
+                    android:layout_height="48dp"
+                    android:text="!"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:backgroundTint="@color/primary"
+                    android:textColor="@color/on_primary"
+                    android:fontFamily="@font/fredoka_one"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ayuda"
+                    android:textSize="18sp"
+                    android:textColor="@color/on_primary"
+                    android:fontFamily="@font/fredoka_one"
+                    android:shadowColor="@color/text_border"
+                    android:shadowRadius="4"
+                    android:layout_marginStart="12dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- ========== BLOQUE CANTIDAD DE PREGUNTAS ========== -->
+        <LinearLayout
+            android:id="@+id/bloqueCantidad"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/marco_formulario"
+            android:padding="12dp"
+            android:gravity="center"
+            app:layout_constraintStart_toEndOf="@id/btnRegresar"
+            app:layout_constraintEnd_toStartOf="@id/btnJugar"
+            app:layout_constraintTop_toBottomOf="@+id/bloqueOperaciones"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp">
+
+            <!-- Título -->
+            <TextView
+                android:id="@+id/tvLabelCantidad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cantidad de Preguntas"
+                android:textSize="18sp"
+                android:textColor="@color/on_primary"
+                android:fontFamily="@font/fredoka_one"
+                android:shadowColor="@color/text_border"
+                android:shadowRadius="4" />
+
+            <!-- Número actual -->
+            <TextView
+                android:id="@+id/tvValorCantidad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="@color/on_surface"
+                android:fontFamily="@font/fredoka_one"
+                android:layout_marginTop="4dp" />
+
+            <!-- Fila: 1 - Slider - 10 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="4dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    android:textSize="14sp"
+                    android:textColor="@color/on_surface"
+                    android:fontFamily="@font/fredoka_one"
+                    android:paddingEnd="8dp" />
+
+                <SeekBar
+                    android:id="@+id/seekBarCantidad"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:max="9"
+                    android:progress="4"
+                    android:progressTint="@color/primary"
+                    android:thumbTint="@color/primary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10"
+                    android:textSize="14sp"
+                    android:textColor="@color/on_surface"
+                    android:fontFamily="@font/fredoka_one"
+                    android:paddingStart="8dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- ========== BOTÓN REGRESAR (Izquierda) ========== -->
+        <Button
+            android:id="@+id/btnRegresar"
+            android:layout_width="65dp"
+            android:layout_height="56dp"
+            android:text="↩"
+            android:textSize="28sp"
+            android:backgroundTint="@color/Secondary"
+            android:textColor="@color/on_Secondary"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            app:cornerRadius="28dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginBottom="24dp" />
+
+        <!-- ========== BOTÓN ¡A JUGAR! (Derecha) ========== -->
+        <Button
+            android:id="@+id/btnJugar"
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+            android:text="¡A JUGAR!"
+            android:textSize="18sp"
+            android:backgroundTint="@color/primary"
+            android:textColor="@color/on_primary"
+            android:fontFamily="@font/fredoka_one"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

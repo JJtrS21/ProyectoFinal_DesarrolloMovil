@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/sunny_forest">
+
+    <!-- ========== CONTADOR DE PREGUNTAS ========== -->
+    <TextView
+        android:id="@+id/tvContadorPreguntas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pregunta # de #"
+        android:textSize="18sp"
+        android:textColor="@color/on_surface"
+        android:fontFamily="@font/fredoka_one"
+        android:background="@drawable/marco_formulario"
+        android:padding="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp" />
+
+    <!-- ========== TEMPORIZADOR ========== -->
+    <TextView
+        android:id="@+id/tvTemporizador"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="⏱ ∞"
+        android:textSize="24sp"
+        android:textColor="@color/on_surface"
+        android:fontFamily="@font/fredoka_one"
+        android:background="@drawable/marco_formulario"
+        android:padding="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp" />
+
+    <!-- ========== ANIMALITO ========== -->
+    <ImageView
+        android:id="@+id/ivAnimalito"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="24dp"
+        android:contentDescription="Animalito del bosque"
+        android:src="@drawable/animalito"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- ========== CÍRCULOS DE DIÁLOGO ========== -->
+    <LinearLayout
+        android:id="@+id/circulosDialogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="@id/tvBurbujaPregunta"
+        app:layout_constraintBottom_toBottomOf="@id/tvBurbujaPregunta"
+        app:layout_constraintStart_toEndOf="@id/ivAnimalito"
+        app:layout_constraintEnd_toStartOf="@id/tvBurbujaPregunta"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp">
+
+    </LinearLayout>
+
+    <!-- ========== BURBUJA DE PREGUNTA ========== -->
+    <TextView
+        android:id="@+id/tvBurbujaPregunta"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Cargando..."
+        android:textSize="28sp"
+        android:textColor="@color/on_surface"
+        android:fontFamily="@font/fredoka_one"
+        android:background="@drawable/burbuja_pregunta"
+        android:gravity="center"
+        android:padding="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnRespuesta1"
+        app:layout_constraintStart_toEndOf="@id/circulosDialogo"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="60dp" />
+
+    <!-- ========== BOTONES DE RESPUESTA ========== -->
+
+    <Button
+        android:id="@+id/btnRespuesta1"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:text="Cargando..."
+        android:textSize="26sp"
+        android:textColor="@color/on_surface"
+        android:fontFamily="@font/fredoka_one"
+        android:background="@drawable/burbuja_respuesta"
+        app:backgroundTint="@null"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        app:layout_constraintBottom_toTopOf="@id/btnRespuesta3"
+        app:layout_constraintStart_toEndOf="@id/ivAnimalito"
+        app:layout_constraintEnd_toStartOf="@id/btnRespuesta2"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp" />
+
+    <Button
+        android:id="@+id/btnRespuesta2"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:text="Cargando..."
+        android:textSize="26sp"
+        android:textColor="@color/on_surface"
+        android:fontFamily="@font/fredoka_one"
+        android:background="@drawable/burbuja_respuesta"
+        app:backgroundTint="@null"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        app:layout_constraintBottom_toTopOf="@id/btnRespuesta4"
+        app:layout_constraintStart_toEndOf="@id/btnRespuesta1"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="8dp" />
+
+    <Button
+        android:id="@+id/btnRespuesta3"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:text="Cargando..."
+        android:textSize="26sp"
+        android:textColor="@color/on_surface"
+        android:fontFamily="@font/fredoka_one"
+        android:background="@drawable/burbuja_respuesta"
+        app:backgroundTint="@null"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ivAnimalito"
+        app:layout_constraintEnd_toStartOf="@id/btnRespuesta4"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="24dp" />
+
+    <Button
+        android:id="@+id/btnRespuesta4"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:text="Cargando..."
+        android:textSize="26sp"
+        android:textColor="@color/on_surface"
+        android:fontFamily="@font/fredoka_one"
+        android:background="@drawable/burbuja_respuesta"
+        app:backgroundTint="@null"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnRespuesta3"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp" />
+
+    <View
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginBottom="13dp"
+        android:background="@drawable/burbuja_pregunta"
+        app:layout_constraintBottom_toTopOf="@+id/ivAnimalito"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="102dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/burbuja_pregunta"
+        app:layout_constraintBottom_toTopOf="@+id/ivAnimalito"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="130dp"
+        android:layout_marginBottom="60dp"
+        android:background="@drawable/burbuja_pregunta"
+        app:layout_constraintBottom_toTopOf="@+id/ivAnimalito"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

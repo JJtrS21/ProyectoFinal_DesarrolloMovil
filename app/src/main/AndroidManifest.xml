@@ -11,12 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ProyectoFinal">
+
         <activity
-            android:name=".FormularioActivity"
-            android:screenOrientation="landscape"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
+            android:name=".NivelesActivity"
             android:exported="true"
             android:screenOrientation="landscape">
             <intent-filter>
@@ -24,6 +21,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".JuegoActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+
+        <activity
+            android:name=".FormularioActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+
     </application>
 
 </manifest>
