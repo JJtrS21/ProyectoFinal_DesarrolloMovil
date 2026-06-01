@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 
 import androidx.appcompat.widget.AppCompatTextView;
 
+// TextView personalizado para dibujar texto con contorno negro
 public class OutlinedTextView extends AppCompatTextView {
 
     public OutlinedTextView(Context context) {
@@ -24,15 +25,16 @@ public class OutlinedTextView extends AppCompatTextView {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        // Guarda el color original del texto
         int colorOriginal = getCurrentTextColor();
 
-        // Dibuja el contorno negro
+        // Dibuja primero el contorno negro del texto
         getPaint().setStyle(Paint.Style.STROKE);
         getPaint().setStrokeWidth(12f);
         setTextColor(Color.BLACK);
         super.onDraw(canvas);
 
-        // Dibuja el relleno del texto encima
+        // Dibuja después el relleno del texto encima del contorno
         getPaint().setStyle(Paint.Style.FILL);
         setTextColor(colorOriginal);
         super.onDraw(canvas);
