@@ -13,9 +13,17 @@
         android:theme="@style/Theme.ProyectoFinal">
 
         <activity
+            android:name=".Modos"
+            android:exported="false" />
+        <activity
+            android:name=".Padres"
+            android:exported="false" />
+        <activity
+            android:name=".Perfiles"
+            android:exported="false" />
+        <activity
             android:name=".Inicio"
-            android:exported="true"
-            android:screenOrientation="landscape">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
