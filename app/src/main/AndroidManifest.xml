@@ -13,20 +13,9 @@
         android:theme="@style/Theme.ProyectoFinal">
 
         <activity
-            android:name=".NivelesActivity"
-            android:exported="false"
-            android:screenOrientation="landscape"/>
-
-        <activity
-            android:name=".JuegoActivity"
-            android:exported="false"
-            android:screenOrientation="landscape" />
-
-        <activity
-            android:name=".FormularioActivity"
+            android:name=".Inicio"
             android:exported="true"
-            android:screenOrientation="landscape"
-            >
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -34,7 +23,28 @@
         </activity>
 
         <activity
-            android:name=".MainActivity"
+            android:name=".Modos"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".Padres"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".Perfiles"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+
+        <activity
+            android:name=".NivelesActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".JuegoActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".FormularioActivity"
             android:exported="false"
             android:screenOrientation="landscape" />
 
