@@ -1,5 +1,6 @@
 package com.fei.proyectofinal
 
+import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.View
@@ -33,6 +34,8 @@ class Modos : AppCompatActivity() {
         val txtNombrePerfil = findViewById<TextView>(R.id.txtNombrePerfil)
         val imgPerfilSeleccionado = findViewById<ImageView>(R.id.imgPerfilSeleccionado)
         val btnRegresar = findViewById<MaterialButton>(R.id.btnRegresar)
+        val btnNiveles = findViewById<MaterialButton>(R.id.btnNiveles)
+        val btnPersonalizado = findViewById<MaterialButton>(R.id.btnPersonalizado)
 
         // Muestra el nombre y la imagen del perfil seleccionado
         txtNombrePerfil.text = nombrePerfil
@@ -41,6 +44,16 @@ class Modos : AppCompatActivity() {
         // Regresa a la pantalla anterior
         btnRegresar.setOnClickListener {
             finish()
+        }
+
+        btnNiveles.setOnClickListener {
+            val intent = Intent(this, NivelesActivity::class.java)
+            startActivity(intent)
+        }
+
+        btnPersonalizado.setOnClickListener {
+            val intent = Intent(this, FormularioActivity::class.java)
+            startActivity(intent)
         }
     }
 
