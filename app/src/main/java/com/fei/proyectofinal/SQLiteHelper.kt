@@ -169,4 +169,33 @@ class SQLiteHelper(context: Context) : SQLiteOpenHelper(
             else -> dificultad
         }
     }
+
+    fun eliminarPartidasPorPerfil(perfil: String) {
+        val db = writableDatabase
+
+        db.execSQL(
+            """
+        DELETE FROM partidas
+        WHERE perfil = ?
+        """.trimIndent(),
+            arrayOf(perfil)
+        )
+
+        db.close()
+    }
+
+    fun actualizarNombrePerfilEnPartidas(nombreAnterior: String, nombreNuevo: String) {
+        val db = writableDatabase
+
+        db.execSQL(
+            """
+        UPDATE partidas
+        SET perfil = ?
+        WHERE perfil = ?
+        """.trimIndent(),
+            arrayOf(nombreNuevo, nombreAnterior)
+        )
+
+        db.close()
+    }
 }

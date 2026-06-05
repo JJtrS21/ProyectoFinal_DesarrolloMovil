@@ -284,8 +284,15 @@ class Padres : AppCompatActivity() {
         val editor = prefs.edit()
 
         if (modoEditar && perfilEditando != -1) {
+            val nombreAnterior = prefs.getString("perfil_$perfilEditando", "") ?: ""
+
             editor.putString("perfil_$perfilEditando", nombre)
             editor.apply()
+
+            if (nombreAnterior.isNotEmpty() && nombreAnterior != nombre) {
+                val db = SQLiteHelper(this)
+                db.actualizarNombrePerfilEnPartidas(nombreAnterior, nombre)
+            }
 
             Toast.makeText(this, "Perfil actualizado", Toast.LENGTH_SHORT).show()
         } else {
@@ -342,6 +349,15 @@ class Padres : AppCompatActivity() {
         val prefs = getSharedPreferences("perfiles", MODE_PRIVATE)
         val cantidad = prefs.getInt("cantidad_perfiles", 0)
         val editor = prefs.edit()
+
+        // Obtiene el nombre del perfil que se va a eliminar
+        val nombrePerfilEliminado = prefs.getString("perfil_$perfilEditando", "") ?: ""
+
+        // Elimina también las partidas guardadas de ese perfil en SQLite
+        if (nombrePerfilEliminado.isNotEmpty()) {
+            val db = SQLiteHelper(this)
+            db.eliminarPartidasPorPerfil(nombrePerfilEliminado)
+        }
 
         for (i in perfilEditando until cantidad) {
             val siguienteNombre = prefs.getString("perfil_${i + 1}", null)
