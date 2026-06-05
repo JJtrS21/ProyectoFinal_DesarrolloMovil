@@ -1,5 +1,6 @@
 package com.fei.proyectofinal
 
+import android.app.DatePickerDialog
 import android.content.pm.ActivityInfo
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -12,55 +13,56 @@ import android.view.WindowInsetsController
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TableLayout
+import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.WindowCompat
 import com.google.android.material.button.MaterialButton
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
+import androidx.appcompat.app.AlertDialog
 
 class Padres : AppCompatActivity() {
 
-    // Elementos principales de la pantalla
     private lateinit var contenedorPerfiles: LinearLayout
     private lateinit var edtNombrePerfil: EditText
     private lateinit var imgAvatarFormulario: ImageView
     private lateinit var txtTituloFormulario: TextView
 
-    // Botones del formulario
     private lateinit var btnGuardarPerfil: MaterialButton
     private lateinit var btnCancelarFormulario: MaterialButton
     private lateinit var btnEliminarPerfil: MaterialButton
 
-    // Botones para mover la lista de perfiles
     private lateinit var btnSubirPerfiles: MaterialButton
     private lateinit var btnBajarPerfiles: MaterialButton
 
-    // Panel de historial del perfil
     private lateinit var panelHistorial: LinearLayout
     private lateinit var txtTituloHistorial: TextView
+    private lateinit var txtFechaSeleccionada: TextView
+    private lateinit var tablaHistorial: TableLayout
 
-    // Variables para controlar si se está creando o editando un perfil
+    private var perfilHistorialActual = ""
+    private var fechaHistorialActual = ""
+
     private var modoEditar = false
     private var perfilEditando = -1
 
-    // Control de los perfiles visibles con flechas
     private var indiceInicioPerfiles = 0
     private val maxVisibles = 3
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Fuerza la pantalla en modo horizontal
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-
-        // Oculta barras del sistema
         ocultarBarras()
 
-        // Carga el diseño XML
         setContentView(R.layout.activity_padres)
 
-        // Relaciona variables con elementos del XML
         contenedorPerfiles = findViewById(R.id.contenedorPerfiles)
         edtNombrePerfil = findViewById(R.id.edtNombrePerfil)
         imgAvatarFormulario = findViewById(R.id.imgAvatarFormulario)
@@ -72,30 +74,29 @@ class Padres : AppCompatActivity() {
         btnBajarPerfiles = findViewById(R.id.btnBajarPerfiles)
         panelHistorial = findViewById(R.id.panelHistorial)
         txtTituloHistorial = findViewById(R.id.txtTituloHistorial)
+        txtFechaSeleccionada = findViewById(R.id.txtFechaSeleccionada)
+        tablaHistorial = findViewById(R.id.tablaHistorial)
 
         val btnRegresar = findViewById<MaterialButton>(R.id.btnRegresar)
 
-        // Regresa a la pantalla anterior
         btnRegresar.setOnClickListener {
             finish()
         }
 
-        // Guarda un perfil nuevo o editado
         btnGuardarPerfil.setOnClickListener {
             guardarPerfil()
         }
 
-        // Limpia el formulario para crear un nuevo perfil
         btnCancelarFormulario.setOnClickListener {
-            prepararNuevoPerfil()
+            if (modoEditar) {
+                prepararNuevoPerfil()
+            }
         }
 
-        // Elimina el perfil seleccionado
         btnEliminarPerfil.setOnClickListener {
-            eliminarPerfil()
+            confirmarEliminacionPerfil()
         }
 
-        // Mueve la lista de perfiles hacia arriba
         btnSubirPerfiles.setOnClickListener {
             if (indiceInicioPerfiles > 0) {
                 indiceInicioPerfiles--
@@ -103,7 +104,6 @@ class Padres : AppCompatActivity() {
             }
         }
 
-        // Mueve la lista de perfiles hacia abajo
         btnBajarPerfiles.setOnClickListener {
             val totalElementos = obtenerPerfilesGuardados().size + 1
             val maxInicio = maxOf(0, totalElementos - maxVisibles)
@@ -114,45 +114,41 @@ class Padres : AppCompatActivity() {
             }
         }
 
-        // Estado inicial de la pantalla
+        // Abre un calendario al tocar la fecha del historial
+        txtFechaSeleccionada.setOnClickListener {
+            mostrarCalendarioFechas()
+        }
+
         prepararNuevoPerfil()
         cargarPerfiles()
     }
 
     override fun onResume() {
         super.onResume()
-
-        // Mantiene la pantalla completa al volver a la actividad
         ocultarBarras()
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
 
-        // Vuelve a ocultar barras cuando la pantalla recupera el foco
         if (hasFocus) {
             ocultarBarras()
         }
     }
 
     private fun ocultarBarras() {
-        // Oculta la barra superior de la app
         supportActionBar?.hide()
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
-            // Permite que el contenido use toda la pantalla
             WindowCompat.setDecorFitsSystemWindows(window, false)
 
-            // Oculta barra de estado y navegación
             window.insetsController?.hide(
                 WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars()
             )
 
-            // Permite mostrar las barras temporalmente al deslizar
             window.insetsController?.systemBarsBehavior =
                 WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         } else {
-            // Compatibilidad para versiones antiguas de Android
             @Suppress("DEPRECATION")
             window.decorView.systemUiVisibility =
                 View.SYSTEM_UI_FLAG_FULLSCREEN or
@@ -165,19 +161,19 @@ class Padres : AppCompatActivity() {
     }
 
     private fun mostrarFormulario() {
-        // Oculta historial y muestra formulario
         panelHistorial.visibility = View.GONE
 
         txtTituloFormulario.visibility = View.VISIBLE
         findViewById<View>(R.id.lblNombre).visibility = View.VISIBLE
         edtNombrePerfil.visibility = View.VISIBLE
-        findViewById<View>(R.id.lblFoto).visibility = View.VISIBLE
-        imgAvatarFormulario.visibility = View.VISIBLE
         findViewById<View>(R.id.layoutBotonesFormulario).visibility = View.VISIBLE
+
+        // La foto no se muestra en crear/editar perfil
+        findViewById<View>(R.id.lblFoto).visibility = View.GONE
+        imgAvatarFormulario.visibility = View.GONE
     }
 
     private fun ocultarFormulario() {
-        // Oculta los elementos del formulario
         txtTituloFormulario.visibility = View.GONE
         findViewById<View>(R.id.lblNombre).visibility = View.GONE
         edtNombrePerfil.visibility = View.GONE
@@ -187,47 +183,78 @@ class Padres : AppCompatActivity() {
     }
 
     private fun mostrarHistorialPerfil(nombre: String) {
-        // Muestra el historial visual del perfil seleccionado
         ocultarFormulario()
 
         panelHistorial.visibility = View.VISIBLE
         txtTituloHistorial.text = "Historial de juego de $nombre"
+
+        perfilHistorialActual = nombre
+
+        val db = SQLiteHelper(this)
+        val fechas = db.obtenerFechasPorPerfil(nombre)
+
+        if (fechas.isEmpty()) {
+            fechaHistorialActual = obtenerFechaActual()
+            txtFechaSeleccionada.text = "Sin partidas registradas"
+            llenarTablaHistorial(mutableListOf())
+        } else {
+            fechaHistorialActual = fechas[0]
+            txtFechaSeleccionada.text = fechaHistorialActual
+
+            val partidas = SQLiteHelper(this)
+                .obtenerPartidasPorPerfilYFecha(nombre, fechaHistorialActual)
+
+            llenarTablaHistorial(partidas)
+        }
     }
 
     private fun prepararNuevoPerfil() {
-        // Prepara el formulario para crear un perfil nuevo
         mostrarFormulario()
 
         modoEditar = false
         perfilEditando = -1
 
-        txtTituloFormulario.text = "Crear Perfil"
+        txtTituloFormulario.text = "Crear perfil del niño"
         edtNombrePerfil.setText("")
-        imgAvatarFormulario.setImageResource(R.drawable.perfil_a)
+
+        btnGuardarPerfil.visibility = View.VISIBLE
+        btnCancelarFormulario.visibility = View.GONE
         btnEliminarPerfil.visibility = View.GONE
+
+        btnGuardarPerfil.backgroundTintList =
+            ColorStateList.valueOf(Color.parseColor("#6A4BB3"))
     }
 
     private fun prepararEditarPerfil(numeroPerfil: Int, nombre: String) {
-        // Prepara el formulario para editar un perfil existente
         mostrarFormulario()
 
         modoEditar = true
         perfilEditando = numeroPerfil
 
-        txtTituloFormulario.text = "Editar Perfil"
+        txtTituloFormulario.text = "Editar perfil del niño"
         edtNombrePerfil.setText(nombre)
-        imgAvatarFormulario.setImageResource(obtenerIconoPerfil(obtenerPrimeraLetra(nombre)))
+
+        btnGuardarPerfil.visibility = View.VISIBLE
+        btnCancelarFormulario.visibility = View.VISIBLE
         btnEliminarPerfil.visibility = View.VISIBLE
+
+        btnCancelarFormulario.text = "Cancelar"
+        btnCancelarFormulario.backgroundTintList =
+            ColorStateList.valueOf(Color.parseColor("#6F687C"))
+
+        btnGuardarPerfil.backgroundTintList =
+            ColorStateList.valueOf(Color.parseColor("#6A4BB3"))
+
+        btnEliminarPerfil.backgroundTintList =
+            ColorStateList.valueOf(Color.parseColor("#9E2A2A"))
     }
 
     private fun existeNombreDuplicado(nombreNuevo: String): Boolean {
-        // Verifica que no exista otro perfil con el mismo nombre
         val prefs = getSharedPreferences("perfiles", MODE_PRIVATE)
         val cantidad = prefs.getInt("cantidad_perfiles", 0)
 
         for (i in 1..cantidad) {
             val nombreGuardado = prefs.getString("perfil_$i", "") ?: ""
-
             val esElMismoPerfilQueEstoyEditando = modoEditar && i == perfilEditando
 
             if (!esElMismoPerfilQueEstoyEditando &&
@@ -241,33 +268,27 @@ class Padres : AppCompatActivity() {
     }
 
     private fun guardarPerfil() {
-        // Obtiene el nombre escrito por el usuario
         val nombre = edtNombrePerfil.text.toString().trim()
 
-        // Valida que el nombre no esté vacío
         if (nombre.isEmpty()) {
             Toast.makeText(this, "Escribe un nombre para el perfil", Toast.LENGTH_SHORT).show()
             return
         }
 
-        // Valida que el nombre no esté duplicado
         if (existeNombreDuplicado(nombre)) {
             Toast.makeText(this, "Ya existe un perfil con ese nombre", Toast.LENGTH_SHORT).show()
             return
         }
 
-        // SharedPreferences guarda los perfiles de forma local
         val prefs = getSharedPreferences("perfiles", MODE_PRIVATE)
         val editor = prefs.edit()
 
         if (modoEditar && perfilEditando != -1) {
-            // Actualiza un perfil existente
             editor.putString("perfil_$perfilEditando", nombre)
             editor.apply()
 
             Toast.makeText(this, "Perfil actualizado", Toast.LENGTH_SHORT).show()
         } else {
-            // Crea un nuevo perfil
             val cantidadActual = prefs.getInt("cantidad_perfiles", 0)
             val nuevoNumero = cantidadActual + 1
 
@@ -275,20 +296,44 @@ class Padres : AppCompatActivity() {
             editor.putInt("cantidad_perfiles", nuevoNumero)
             editor.apply()
 
-            // Mueve la lista para mostrar el nuevo perfil y el botón +
             val totalElementos = nuevoNumero + 1
             indiceInicioPerfiles = maxOf(0, totalElementos - maxVisibles)
 
             Toast.makeText(this, "Perfil creado", Toast.LENGTH_SHORT).show()
         }
 
-        // Actualiza la lista visual
         cargarPerfiles()
         prepararNuevoPerfil()
     }
 
+    private fun confirmarEliminacionPerfil() {
+        // Verifica que realmente se esté editando un perfil
+        if (!modoEditar || perfilEditando == -1) {
+            Toast.makeText(this, "Selecciona un perfil para eliminar", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Obtiene el nombre actual escrito en el campo
+        val nombrePerfil = edtNombrePerfil.text.toString().trim()
+
+        // Muestra un aviso antes de eliminar el perfil
+        AlertDialog.Builder(this)
+            .setTitle("Eliminar perfil")
+            .setMessage(
+                "¿Estás seguro de eliminar el perfil \"$nombrePerfil\"?\n\n" +
+                        "Esta acción es permanente y no se podrá deshacer."
+            )
+            .setPositiveButton("Eliminar") { dialog, _ ->
+                eliminarPerfil()
+                dialog.dismiss()
+            }
+            .setNegativeButton("Cancelar") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+    }
+
     private fun eliminarPerfil() {
-        // Verifica que haya un perfil seleccionado para editar
         if (!modoEditar || perfilEditando == -1) {
             Toast.makeText(this, "Selecciona un perfil para eliminar", Toast.LENGTH_SHORT).show()
             return
@@ -298,26 +343,22 @@ class Padres : AppCompatActivity() {
         val cantidad = prefs.getInt("cantidad_perfiles", 0)
         val editor = prefs.edit()
 
-        // Reacomoda los perfiles para no dejar espacios vacíos
         for (i in perfilEditando until cantidad) {
             val siguienteNombre = prefs.getString("perfil_${i + 1}", null)
             editor.putString("perfil_$i", siguienteNombre)
         }
 
-        // Elimina el último registro duplicado
         editor.remove("perfil_$cantidad")
         editor.putInt("cantidad_perfiles", cantidad - 1)
         editor.apply()
 
         Toast.makeText(this, "Perfil eliminado", Toast.LENGTH_SHORT).show()
 
-        // Actualiza la lista y limpia el formulario
         cargarPerfiles()
         prepararNuevoPerfil()
     }
 
     private fun obtenerPerfilesGuardados(): MutableList<Pair<Int, String>> {
-        // Recupera los perfiles guardados en SharedPreferences
         val prefs = getSharedPreferences("perfiles", MODE_PRIVATE)
         val cantidad = prefs.getInt("cantidad_perfiles", 0)
         val lista = mutableListOf<Pair<Int, String>>()
@@ -331,12 +372,10 @@ class Padres : AppCompatActivity() {
     }
 
     private fun cargarPerfiles() {
-        // Limpia la lista visual antes de volver a dibujarla
         contenedorPerfiles.removeAllViews()
 
         val perfiles = obtenerPerfilesGuardados()
 
-        // Se suma 1 porque el botón + también cuenta como elemento
         val totalElementos = perfiles.size + 1
         val maxInicio = maxOf(0, totalElementos - maxVisibles)
 
@@ -346,7 +385,6 @@ class Padres : AppCompatActivity() {
 
         val ultimo = minOf(indiceInicioPerfiles + maxVisibles, totalElementos)
 
-        // Dibuja perfiles visibles o el botón +
         for (posicion in indiceInicioPerfiles until ultimo) {
             if (posicion < perfiles.size) {
                 val (numeroPerfil, nombre) = perfiles[posicion]
@@ -360,7 +398,6 @@ class Padres : AppCompatActivity() {
     }
 
     private fun crearFilaPerfil(numeroPerfil: Int, nombre: String): LinearLayout {
-        // Crea una fila con botón de perfil y botón de editar
         val fila = LinearLayout(this).apply {
             orientation = LinearLayout.HORIZONTAL
             gravity = Gravity.CENTER_VERTICAL
@@ -373,7 +410,6 @@ class Padres : AppCompatActivity() {
             }
         }
 
-        // Botón principal del perfil
         val botonPerfil = MaterialButton(this).apply {
             text = nombre
             textSize = 15f
@@ -404,7 +440,6 @@ class Padres : AppCompatActivity() {
             )
         }
 
-        // Botón de engrane para editar el perfil
         val botonEditar = MaterialButton(this).apply {
             text = ""
             contentDescription = "Editar perfil"
@@ -437,12 +472,10 @@ class Padres : AppCompatActivity() {
             }
         }
 
-        // Al tocar el perfil se muestra su historial
         botonPerfil.setOnClickListener {
             mostrarHistorialPerfil(nombre)
         }
 
-        // Al tocar el engrane se edita el perfil
         botonEditar.setOnClickListener {
             prepararEditarPerfil(numeroPerfil, nombre)
         }
@@ -454,7 +487,6 @@ class Padres : AppCompatActivity() {
     }
 
     private fun crearFilaAgregar(): LinearLayout {
-        // Crea la fila del botón para agregar perfil
         val fila = LinearLayout(this).apply {
             orientation = LinearLayout.HORIZONTAL
             gravity = Gravity.CENTER
@@ -467,7 +499,6 @@ class Padres : AppCompatActivity() {
             }
         }
 
-        // Botón +
         val botonAgregar = MaterialButton(this).apply {
             text = "+"
             textSize = 26f
@@ -506,7 +537,6 @@ class Padres : AppCompatActivity() {
     }
 
     private fun actualizarEstadoFlechas(totalElementos: Int) {
-        // Mantiene visibles las flechas y solo las desactiva cuando no se pueden usar
         btnSubirPerfiles.visibility = View.VISIBLE
         btnBajarPerfiles.visibility = View.VISIBLE
 
@@ -520,8 +550,127 @@ class Padres : AppCompatActivity() {
         btnBajarPerfiles.alpha = if (puedeBajar) 1f else 0.55f
     }
 
+    private fun llenarTablaHistorial(partidas: MutableList<Array<String>>) {
+        tablaHistorial.removeAllViews()
+
+        agregarFilaTabla(
+            arrayOf("Hora", "Tipo", "Operaciones", "Dificultad", "Tiempo", "Aciertos"),
+            esEncabezado = true
+        )
+
+        if (partidas.isEmpty()) {
+            agregarFilaTabla(
+                arrayOf("Sin datos", "-", "-", "-", "-", "-"),
+                esEncabezado = false
+            )
+            return
+        }
+
+        for (partida in partidas) {
+            agregarFilaTabla(partida, esEncabezado = false)
+        }
+    }
+
+    private fun agregarFilaTabla(datos: Array<String>, esEncabezado: Boolean) {
+        val fila = TableRow(this).apply {
+            layoutParams = TableLayout.LayoutParams(
+                TableLayout.LayoutParams.MATCH_PARENT,
+                TableLayout.LayoutParams.WRAP_CONTENT
+            )
+
+            setBackgroundColor(
+                if (esEncabezado) {
+                    Color.parseColor("#CFCFCF")
+                } else {
+                    Color.parseColor("#55FFFFFF")
+                }
+            )
+        }
+
+        val pesos = floatArrayOf(
+            0.75f, // Hora
+            1.55f, // Tipo
+            1.35f, // Operaciones
+            1.15f, // Dificultad
+            1.15f, // Tiempo
+            1.0f   // Aciertos
+        )
+
+        for (i in datos.indices) {
+            val texto = TextView(this).apply {
+                text = datos[i]
+                textSize = if (esEncabezado) 10f else 9.6f
+                setTextColor(Color.BLACK)
+                setPadding(dp(3), dp(4), dp(3), dp(4))
+                gravity = Gravity.CENTER
+                maxLines = 2
+
+                if (esEncabezado) {
+                    typeface = ResourcesCompat.getFont(this@Padres, R.font.fredoka_bold)
+                }
+
+                layoutParams = TableRow.LayoutParams(
+                    0,
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    pesos.getOrElse(i) { 1f }
+                )
+            }
+
+            fila.addView(texto)
+        }
+
+        tablaHistorial.addView(fila)
+    }
+
+    private fun mostrarCalendarioFechas() {
+        // Verifica que primero se haya seleccionado un perfil
+        if (perfilHistorialActual.isEmpty()) {
+            Toast.makeText(this, "Selecciona un perfil primero", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val calendario = Calendar.getInstance()
+
+        val anio = calendario.get(Calendar.YEAR)
+        val mes = calendario.get(Calendar.MONTH)
+        val dia = calendario.get(Calendar.DAY_OF_MONTH)
+
+        // Abre el calendario para que el usuario elija una fecha
+        val datePicker = DatePickerDialog(
+            this,
+            { _, anioSeleccionado, mesSeleccionado, diaSeleccionado ->
+
+                // Convierte la fecha elegida al formato usado en SQLite: yyyy-MM-dd
+                val fechaSeleccionada = String.format(
+                    Locale.getDefault(),
+                    "%04d-%02d-%02d",
+                    anioSeleccionado,
+                    mesSeleccionado + 1,
+                    diaSeleccionado
+                )
+
+                fechaHistorialActual = fechaSeleccionada
+                txtFechaSeleccionada.text = fechaSeleccionada
+
+                // Busca las partidas del perfil en la fecha seleccionada
+                val partidas = SQLiteHelper(this)
+                    .obtenerPartidasPorPerfilYFecha(perfilHistorialActual, fechaHistorialActual)
+
+                llenarTablaHistorial(partidas)
+            },
+            anio,
+            mes,
+            dia
+        )
+
+        datePicker.show()
+    }
+
+    private fun obtenerFechaActual(): String {
+        return SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+    }
+
     private fun obtenerPrimeraLetra(nombre: String): Char {
-        // Obtiene la primera letra válida del nombre
         val primera = nombre.trim().lowercase().firstOrNull() ?: return '#'
 
         return if (primera in 'a'..'z' || primera == 'ñ') {
@@ -532,7 +681,6 @@ class Padres : AppCompatActivity() {
     }
 
     private fun obtenerIconoPerfil(letra: Char): Int {
-        // Regresa el icono correspondiente a la primera letra del perfil
         return when (letra) {
             'a' -> R.drawable.perfil_a
             'b' -> R.drawable.perfil_b
@@ -566,7 +714,6 @@ class Padres : AppCompatActivity() {
     }
 
     private fun dp(valor: Int): Int {
-        // Convierte valores dp a pixeles según la densidad del dispositivo
         return (valor * resources.displayMetrics.density).toInt()
     }
 }

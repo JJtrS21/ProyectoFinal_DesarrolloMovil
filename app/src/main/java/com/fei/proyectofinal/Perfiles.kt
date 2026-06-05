@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.WindowCompat
 import com.google.android.material.button.MaterialButton
-import kotlin.jvm.java
 
 class Perfiles : AppCompatActivity() {
 

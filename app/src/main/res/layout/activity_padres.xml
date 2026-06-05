@@ -135,9 +135,9 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingStart="34dp"
+            android:paddingStart="22dp"
             android:paddingTop="14dp"
-            android:paddingEnd="34dp"
+            android:paddingEnd="22dp"
             android:paddingBottom="12dp">
 
             <TextView
@@ -146,7 +146,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/fredoka_bold"
                 android:gravity="center"
-                android:text="Crear Perfil"
+                android:text="Crear perfil del niño"
                 android:textColor="@android:color/black"
                 android:textSize="26sp"
                 android:textStyle="bold"
@@ -262,11 +262,11 @@
                     android:paddingStart="2dp"
                     android:paddingEnd="2dp"
                     android:singleLine="true"
-                    android:text="Regresar"
+                    android:text="Cancelar"
                     android:textAllCaps="false"
                     android:textColor="@android:color/white"
                     android:textSize="11sp"
-                    app:backgroundTint="#6A4BB3"
+                    app:backgroundTint="#6F687C"
                     app:cornerRadius="16dp"
                     app:strokeColor="@android:color/white"
                     app:strokeWidth="2dp" />
@@ -337,7 +337,7 @@
                         android:gravity="center_vertical"
                         android:paddingStart="14dp"
                         android:paddingEnd="14dp"
-                        android:text="08/17/2025"
+                        android:text="Sin partidas registradas"
                         android:textColor="@android:color/black"
                         android:textSize="16sp" />
 
@@ -355,114 +355,12 @@
                         android:layout_height="wrap_content"
                         android:fillViewport="true">
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
+                        <TableLayout
+                            android:id="@+id/tablaHistorial"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="26dp"
-                                android:background="#D6D6D6"
-                                android:gravity="center_vertical"
-                                android:paddingStart="8dp"
-                                android:text="24 Octubre 2024"
-                                android:textColor="@android:color/black"
-                                android:textSize="13sp"
-                                android:textStyle="bold" />
-
-                            <TableLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="#66000000">
-
-                                <TableRow android:background="#CFCFCF">
-
-                                    <TextView android:layout_width="60dp" android:padding="5dp" android:text="Hora" android:textColor="@android:color/black" android:textSize="12sp" android:textStyle="bold" />
-                                    <TextView android:layout_width="110dp" android:padding="5dp" android:text="Tipo" android:textColor="@android:color/black" android:textSize="12sp" android:textStyle="bold" />
-                                    <TextView android:layout_width="115dp" android:padding="5dp" android:text="Operaciones" android:textColor="@android:color/black" android:textSize="12sp" android:textStyle="bold" />
-                                    <TextView android:layout_width="95dp" android:padding="5dp" android:text="Dificultad" android:textColor="@android:color/black" android:textSize="12sp" android:textStyle="bold" />
-                                    <TextView android:layout_width="85dp" android:padding="5dp" android:text="Tiempo" android:textColor="@android:color/black" android:textSize="12sp" android:textStyle="bold" />
-                                    <TextView android:layout_width="85dp" android:padding="5dp" android:text="Aciertos" android:textColor="@android:color/black" android:textSize="12sp" android:textStyle="bold" />
-
-                                </TableRow>
-
-                                <TableRow android:background="#55FFFFFF">
-                                    <TextView android:padding="5dp" android:text="16:30" android:textColor="@android:color/black" android:textSize="12sp" />
-                                    <TextView android:padding="5dp" android:text="Nivel 2" android:textColor="@android:color/black" android:textSize="12sp" />
-                                    <TextView android:padding="5dp" android:text="+, -, ×" android:textColor="@android:color/black" android:textSize="12sp" />
-                                    <TextView android:padding="5dp" android:text="Medio" android:textColor="@android:color/black" android:textSize="12sp" />
-                                    <TextView android:padding="5dp" android:text="30 seg" android:textColor="@android:color/black" android:textSize="12sp" />
-                                    <TextView android:padding="5dp" android:text="7/10" android:textColor="@android:color/black" android:textSize="12sp" />
-                                </TableRow>
-
-                                <TableRow android:background="#33FFFFFF">
-                                    <TextView android:padding="5dp" android:text="16:15" android:textColor="@android:color/black" android:textSize="12sp" />
-                                    <TextView android:padding="5dp" android:text="Personalizado" android:textColor="@android:color/black" android:textSize="12sp" />
-                                    <TextView android:padding="5dp" android:text="+" android:textColor="@android:color/black" android:textSize="12sp" />
-                                    <TextView android:padding="5dp" android:text="Fácil" android:textColor="@android:color/black" android:textSize="12sp" />
-                                    <TextView android:padding="5dp" android:text="Sin límite" android:textColor="@android:color/black" android:textSize="12sp" />
-                                    <TextView android:padding="5dp" android:text="5/5" android:textColor="@android:color/black" android:textSize="12sp" />
-                                </TableRow>
-
-                                <TableRow android:background="#55FFFFFF">
-                                    <TextView android:padding="5dp" android:text="15:45" android:textColor="@android:color/black" android:textSize="12sp" />
-                                    <TextView android:padding="5dp" android:text="Nivel 1" android:textColor="@android:color/black" android:textSize="12sp" />
-                                    <TextView android:padding="5dp" android:text="+" android:textColor="@android:color/black" android:textSize="12sp" />
-                                    <TextView android:padding="5dp" android:text="Fácil" android:textColor="@android:color/black" android:textSize="12sp" />
-                                    <TextView android:padding="5dp" android:text="Sin límite" android:textColor="@android:color/black" android:textSize="12sp" />
-                                    <TextView android:padding="5dp" android:text="8/10" android:textColor="@android:color/black" android:textSize="12sp" />
-                                </TableRow>
-
-                            </TableLayout>
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="26dp"
-                                android:layout_marginTop="12dp"
-                                android:background="#D6D6D6"
-                                android:gravity="center_vertical"
-                                android:paddingStart="8dp"
-                                android:text="23 Octubre 2024"
-                                android:textColor="@android:color/black"
-                                android:textSize="13sp"
-                                android:textStyle="bold" />
-
-                            <TableLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="#66000000">
-
-                                <TableRow android:background="#CFCFCF">
-                                    <TextView android:layout_width="60dp" android:padding="5dp" android:text="Hora" android:textColor="@android:color/black" android:textSize="12sp" android:textStyle="bold" />
-                                    <TextView android:layout_width="110dp" android:padding="5dp" android:text="Tipo" android:textColor="@android:color/black" android:textSize="12sp" android:textStyle="bold" />
-                                    <TextView android:layout_width="115dp" android:padding="5dp" android:text="Operaciones" android:textColor="@android:color/black" android:textSize="12sp" android:textStyle="bold" />
-                                    <TextView android:layout_width="95dp" android:padding="5dp" android:text="Dificultad" android:textColor="@android:color/black" android:textSize="12sp" android:textStyle="bold" />
-                                    <TextView android:layout_width="85dp" android:padding="5dp" android:text="Tiempo" android:textColor="@android:color/black" android:textSize="12sp" android:textStyle="bold" />
-                                    <TextView android:layout_width="85dp" android:padding="5dp" android:text="Aciertos" android:textColor="@android:color/black" android:textSize="12sp" android:textStyle="bold" />
-                                </TableRow>
-
-                                <TableRow android:background="#55FFFFFF">
-                                    <TextView android:padding="5dp" android:text="18:20" android:textColor="@android:color/black" android:textSize="12sp" />
-                                    <TextView android:padding="5dp" android:text="Nivel 3" android:textColor="@android:color/black" android:textSize="12sp" />
-                                    <TextView android:padding="5dp" android:text="+, -, ×, ÷" android:textColor="@android:color/black" android:textSize="12sp" />
-                                    <TextView android:padding="5dp" android:text="Difícil" android:textColor="@android:color/black" android:textSize="12sp" />
-                                    <TextView android:padding="5dp" android:text="45 seg" android:textColor="@android:color/black" android:textSize="12sp" />
-                                    <TextView android:padding="5dp" android:text="9/10" android:textColor="@android:color/black" android:textSize="12sp" />
-                                </TableRow>
-
-                                <TableRow android:background="#33FFFFFF">
-                                    <TextView android:padding="5dp" android:text="17:10" android:textColor="@android:color/black" android:textSize="12sp" />
-                                    <TextView android:padding="5dp" android:text="Nivel 1" android:textColor="@android:color/black" android:textSize="12sp" />
-                                    <TextView android:padding="5dp" android:text="+" android:textColor="@android:color/black" android:textSize="12sp" />
-                                    <TextView android:padding="5dp" android:text="Fácil" android:textColor="@android:color/black" android:textSize="12sp" />
-                                    <TextView android:padding="5dp" android:text="Sin límite" android:textColor="@android:color/black" android:textSize="12sp" />
-                                    <TextView android:padding="5dp" android:text="10/10" android:textColor="@android:color/black" android:textSize="12sp" />
-                                </TableRow>
-
-                            </TableLayout>
-
-                        </LinearLayout>
+                            android:background="#66000000"
+                            android:stretchColumns="*" />
 
                     </HorizontalScrollView>
 

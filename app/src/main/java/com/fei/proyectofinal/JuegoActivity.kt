@@ -40,6 +40,7 @@ class JuegoActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_juego)
         ocultarBarras()
 
@@ -55,15 +56,17 @@ class JuegoActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         perfilActual = intent.getStringExtra("nombrePerfil") ?: "Sin perfil"
         tipoJuego = intent.getStringExtra("tipoJuego") ?: "Personalizado"
 
+        // Inicializa el lector de voz
         tts = TextToSpeech(this, this)
 
         val operaciones = intent.getStringExtra("operaciones")?.split(",") ?: listOf("SUMA")
         val dificultad = intent.getStringExtra("dificultad") ?: "FACIL"
         val tiposPreguntas = intent.getStringExtra("tiposPreguntas")?.split(",") ?: listOf("OPERACIONES")
+
         tiempoPorPregunta = intent.getIntExtra("tiempo", 0)
         cantidadTotal = intent.getIntExtra("cantidad", 5)
 
-        // Guardar strings para la base de datos
+        // Guarda estos datos como texto para registrarlos en SQLite
         operacionesStr = intent.getStringExtra("operaciones") ?: "SUMA"
         dificultadStr = intent.getStringExtra("dificultad") ?: "FACIL"
 
@@ -76,13 +79,16 @@ class JuegoActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
 
         val base = preguntas.toList()
+
         while (preguntas.size < cantidadTotal) {
             preguntas = preguntas + base.random()
         }
+
         preguntas = preguntas.take(cantidadTotal)
 
         indiceActual = 0
         aciertos = 0
+
         mostrarPregunta()
     }
 
@@ -91,9 +97,11 @@ class JuegoActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
             WindowCompat.setDecorFitsSystemWindows(window, false)
+
             window.insetsController?.hide(
                 WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars()
             )
+
             window.insetsController?.systemBarsBehavior =
                 WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         } else {
@@ -108,12 +116,13 @@ class JuegoActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
     }
 
-// ==================== TTS ====================
+    // ==================== TTS ====================
 
     override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS) {
             tts.language = Locale("es", "MX")
             ttsListo = true
+
             if (::preguntas.isInitialized && preguntas.isNotEmpty() && indiceActual < preguntas.size) {
                 leerEnunciado(preguntas[indiceActual].enunciado)
             }
@@ -132,6 +141,7 @@ class JuegoActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private fun leerEnunciado(texto: String) {
         if (::tts.isInitialized && ttsListo) {
             val textoCorregido = textoParaLeer(texto)
+
             tts.stop()
             tts.speak(textoCorregido, TextToSpeech.QUEUE_FLUSH, null, null)
         }
@@ -146,25 +156,29 @@ class JuegoActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
 
         enRetroalimentacion = false
+
         val pregunta = preguntas[indiceActual]
 
         tvContador.text = "Pregunta ${indiceActual + 1} de $cantidadTotal"
         tvBurbujaPregunta.text = pregunta.enunciado
 
-        // Leer automáticamente
+        // Lee automáticamente la pregunta
         leerEnunciado(pregunta.enunciado)
 
-        // Tocar la burbuja repite el audio
+        // Al tocar la burbuja, repite el audio
         tvBurbujaPregunta.setOnClickListener {
             leerEnunciado(pregunta.enunciado)
         }
 
         val botones = listOf(btnRespuesta1, btnRespuesta2, btnRespuesta3, btnRespuesta4)
+
         for (i in botones.indices) {
             botones[i].text = pregunta.respuestas[i].toString()
             botones[i].isEnabled = true
             botones[i].visibility = Button.VISIBLE
-            botones[i].setOnClickListener { verificarRespuesta(i, pregunta) }
+            botones[i].setOnClickListener {
+                verificarRespuesta(i, pregunta)
+            }
         }
 
         if (tiempoPorPregunta > 0) {
@@ -178,6 +192,7 @@ class JuegoActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private fun verificarRespuesta(indiceSeleccionado: Int, pregunta: Pregunta) {
         if (enRetroalimentacion) return
+
         enRetroalimentacion = true
         timer?.cancel()
 
@@ -196,6 +211,7 @@ class JuegoActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         btnRespuesta2.visibility = Button.VISIBLE
         btnRespuesta3.visibility = Button.INVISIBLE
         btnRespuesta4.visibility = Button.INVISIBLE
+
         btnRespuesta2.text = "Siguiente →"
         btnRespuesta2.setOnClickListener {
             indiceActual++
@@ -207,6 +223,7 @@ class JuegoActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private fun iniciarTemporizador() {
         timer?.cancel()
+
         val tiempoMilis = tiempoPorPregunta * 1000L
         tvTemporizador.text = "⏱ $tiempoPorPregunta"
 
@@ -224,15 +241,18 @@ class JuegoActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private fun tiempoAgotado() {
         if (enRetroalimentacion) return
+
         enRetroalimentacion = true
 
         val pregunta = preguntas[indiceActual]
+
         tvBurbujaPregunta.text = "⏰ ¡Tiempo fuera! ${pregunta.retroalimentacion}"
         leerEnunciado("Tiempo fuera. ${pregunta.retroalimentacion}")
 
         btnRespuesta2.visibility = Button.INVISIBLE
         btnRespuesta3.visibility = Button.INVISIBLE
         btnRespuesta4.visibility = Button.INVISIBLE
+
         btnRespuesta1.text = "Siguiente →"
         btnRespuesta1.setOnClickListener {
             indiceActual++
@@ -243,9 +263,12 @@ class JuegoActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     // ==================== FINALIZAR ====================
 
     private fun finalizarJuego() {
-        // Solo guardar si hay perfil válido
+        timer?.cancel()
+
+        // Guarda la partida solo si hay un perfil válido
         if (perfilActual.isNotEmpty() && perfilActual != "Sin perfil") {
             val db = SQLiteHelper(this)
+
             db.insertarPartida(
                 perfil = perfilActual,
                 tipo = tipoJuego,
@@ -267,15 +290,31 @@ class JuegoActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         btnRespuesta2.visibility = Button.VISIBLE
         btnRespuesta3.visibility = Button.INVISIBLE
         btnRespuesta4.visibility = Button.INVISIBLE
+
         btnRespuesta2.text = "Finalizar"
         btnRespuesta2.setOnClickListener {
             finish()
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        ocultarBarras()
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+
+        if (hasFocus) {
+            ocultarBarras()
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
+
         timer?.cancel()
+
         if (::tts.isInitialized) {
             tts.stop()
             tts.shutdown()

@@ -27,6 +27,7 @@ class Modos : AppCompatActivity() {
         setContentView(R.layout.activity_modos)
 
         // Recibe los datos del perfil seleccionado desde la pantalla Perfiles
+        val idPerfil = intent.getIntExtra("idPerfil", -1)
         val nombrePerfil = intent.getStringExtra("nombrePerfil") ?: "Perfil"
         val iconoPerfil = intent.getIntExtra("iconoPerfil", R.drawable.que_rayos)
 
@@ -46,15 +47,21 @@ class Modos : AppCompatActivity() {
             finish()
         }
 
+        // Abre la pantalla de niveles y conserva los datos del perfil
         btnNiveles.setOnClickListener {
             val intent = Intent(this, NivelesActivity::class.java)
+            intent.putExtra("idPerfil", idPerfil)
             intent.putExtra("nombrePerfil", nombrePerfil)
+            intent.putExtra("iconoPerfil", iconoPerfil)
             startActivity(intent)
         }
 
+        // Abre el formulario personalizado y conserva los datos del perfil
         btnPersonalizado.setOnClickListener {
             val intent = Intent(this, FormularioActivity::class.java)
+            intent.putExtra("idPerfil", idPerfil)
             intent.putExtra("nombrePerfil", nombrePerfil)
+            intent.putExtra("iconoPerfil", iconoPerfil)
             startActivity(intent)
         }
     }
