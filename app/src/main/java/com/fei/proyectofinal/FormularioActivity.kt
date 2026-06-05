@@ -155,21 +155,21 @@ class FormularioActivity : AppCompatActivity() {
                 .setMessage("""
                     Elige las operaciones: suma, resta, multiplicación o división. Puedes combinar todas las que quieras.
                     
-                    Dificultad:
+                    ¿Qué significan las dificultades?
                     Fácil – Sumas y restas hasta 10. Tablas del 1, 2, 3 y 10.
                     Medio – Sumas y restas hasta 20. Tablas del 4, 5 y 6.
                     Difícil – Sumas y restas hasta 100. Tablas del 7, 8 y 9.
                     
-                    Tiempo por pregunta:
-                    Sin límite – Aprendes sin apuros.
-                    30 segundos – Tiempo justo para pensar.
-                    15 segundos – Solo si ya eres muy rápido.
+                    ¿Cómo funciona el tiempo por pregunta?
+                    Sin límite – Aprendes sin apuros, sin presión de tiempo.
+                    30 segundos – Tiempo justo para pensar y responder.
+                    15 segundos – Solo si ya eres muy rápido. ¡Modo desafío!
                     
-                    Tipo de preguntas:
-                    Normales – Solo números. "3 + 5 = ?"
-                    Narrativas – Una historia. "Pepito tenía 3 manzanas y regaló 2. ¿Cuántas le quedan?"
+                    ¿Qué tipo de preguntas hay?
+                    Normales – Operaciones directas como "3 + 5 = ?"
+                    Narrativas – Problemas con historia como "Pepito tenía 3 manzanas y regaló 2. ¿Cuántas le quedan?"
                     
-                    CONSEJO: Toca la burbuja de diálogo para escuchar de nuevo la pregunta.
+                    💡 CONSEJO: Durante el juego, toca la burbuja de diálogo del zorrito para escuchar de nuevo la pregunta.
                 """.trimIndent())
                 .setPositiveButton("¡ENTENDIDO!") { dialog, _ -> dialog.dismiss() }
                 .show()
@@ -219,6 +219,8 @@ class FormularioActivity : AppCompatActivity() {
             intent.putExtra("tiempo", tiempoSeleccionado)
             intent.putExtra("cantidad", findViewById<SeekBar>(R.id.seekBarCantidad).progress + 1)
             intent.putExtra("tiposPreguntas", obtenerTiposPreguntas())
+            intent.putExtra("tipoJuego", "Personalizado")
+            intent.putExtra("nombrePerfil", intent.getStringExtra("nombrePerfil") ?: "Sin perfil")
             startActivity(intent)
         }
     }

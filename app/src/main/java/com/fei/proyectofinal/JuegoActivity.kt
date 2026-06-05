@@ -28,7 +28,10 @@ class JuegoActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private var aciertos = 0
     private var tiempoPorPregunta = 0
     private var cantidadTotal = 0
-
+    private var tipoJuego = "Personalizado"
+    private var operacionesStr = ""
+    private var dificultadStr = "FACIL"
+    private var perfilActual = "Sin perfil"
     private var timer: CountDownTimer? = null
     private var enRetroalimentacion = false
 
@@ -48,6 +51,10 @@ class JuegoActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         btnRespuesta3 = findViewById(R.id.btnRespuesta3)
         btnRespuesta4 = findViewById(R.id.btnRespuesta4)
 
+        // Perfil y tipo de juego
+        perfilActual = intent.getStringExtra("nombrePerfil") ?: "Sin perfil"
+        tipoJuego = intent.getStringExtra("tipoJuego") ?: "Personalizado"
+
         tts = TextToSpeech(this, this)
 
         val operaciones = intent.getStringExtra("operaciones")?.split(",") ?: listOf("SUMA")
@@ -55,6 +62,10 @@ class JuegoActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         val tiposPreguntas = intent.getStringExtra("tiposPreguntas")?.split(",") ?: listOf("OPERACIONES")
         tiempoPorPregunta = intent.getIntExtra("tiempo", 0)
         cantidadTotal = intent.getIntExtra("cantidad", 5)
+
+        // Guardar strings para la base de datos
+        operacionesStr = intent.getStringExtra("operaciones") ?: "SUMA"
+        dificultadStr = intent.getStringExtra("dificultad") ?: "FACIL"
 
         preguntas = BancoPreguntas.filtrar(operaciones, dificultad, tiposPreguntas)
 
@@ -174,18 +185,19 @@ class JuegoActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         if (esCorrecta) {
             aciertos++
-            tvBurbujaPregunta.text = "✅ ${pregunta.retroalimentacion}"
+            tvBurbujaPregunta.text = "✅ ¡Correcto! ${pregunta.retroalimentacion}"
+            leerEnunciado("Correcto. ${pregunta.retroalimentacion}")
         } else {
             tvBurbujaPregunta.text = "❌ Incorrecto. ${pregunta.retroalimentacion}"
+            leerEnunciado("Incorrecto. ${pregunta.retroalimentacion}")
         }
 
-        leerEnunciado(pregunta.retroalimentacion)
-
-        btnRespuesta2.visibility = Button.INVISIBLE
+        btnRespuesta1.visibility = Button.INVISIBLE
+        btnRespuesta2.visibility = Button.VISIBLE
         btnRespuesta3.visibility = Button.INVISIBLE
         btnRespuesta4.visibility = Button.INVISIBLE
-        btnRespuesta1.text = "Siguiente →"
-        btnRespuesta1.setOnClickListener {
+        btnRespuesta2.text = "Siguiente →"
+        btnRespuesta2.setOnClickListener {
             indiceActual++
             mostrarPregunta()
         }
@@ -231,18 +243,32 @@ class JuegoActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     // ==================== FINALIZAR ====================
 
     private fun finalizarJuego() {
+        // Solo guardar si hay perfil válido
+        if (perfilActual.isNotEmpty() && perfilActual != "Sin perfil") {
+            val db = SQLiteHelper(this)
+            db.insertarPartida(
+                perfil = perfilActual,
+                tipo = tipoJuego,
+                operaciones = operacionesStr,
+                dificultad = dificultadStr,
+                tiempo = tiempoPorPregunta,
+                aciertos = aciertos,
+                total = cantidadTotal
+            )
+        }
+
         tvContador.text = "¡Juego terminado!"
         tvBurbujaPregunta.text = "🎉 Acertaste $aciertos de $cantidadTotal"
         tvTemporizador.text = ""
 
         leerEnunciado("Juego terminado. Acertaste $aciertos de $cantidadTotal")
 
-        btnRespuesta2.visibility = Button.INVISIBLE
+        btnRespuesta1.visibility = Button.INVISIBLE
+        btnRespuesta2.visibility = Button.VISIBLE
         btnRespuesta3.visibility = Button.INVISIBLE
         btnRespuesta4.visibility = Button.INVISIBLE
-        btnRespuesta1.text = "Finalizar"
-        btnRespuesta1.setOnClickListener {
-            // TODO: Cambiar por ResultadoActivity cuando esté lista
+        btnRespuesta2.text = "Finalizar"
+        btnRespuesta2.setOnClickListener {
             finish()
         }
     }
