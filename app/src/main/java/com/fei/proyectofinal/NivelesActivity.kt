@@ -12,7 +12,7 @@ import androidx.core.view.WindowCompat
 
 class NivelesActivity : AppCompatActivity() {
 
-    private var nivelCentral = 2
+    private var nivelCentral = 1
     private val totalNiveles = 10
 
     private lateinit var btnAnterior: Button
@@ -137,6 +137,8 @@ class NivelesActivity : AppCompatActivity() {
             9 -> { intent.putExtra("operaciones", "SUMA,RESTA,MULTIPLICACION,DIVISION"); intent.putExtra("dificultad", "DIFICIL"); intent.putExtra("tiempo", 30); intent.putExtra("tiposPreguntas", "OPERACIONES,PROBLEMAS"); intent.putExtra("cantidad", 10) }
             10 -> { intent.putExtra("operaciones", "SUMA,RESTA,MULTIPLICACION,DIVISION"); intent.putExtra("dificultad", "DIFICIL"); intent.putExtra("tiempo", 15); intent.putExtra("tiposPreguntas", "OPERACIONES,PROBLEMAS"); intent.putExtra("cantidad", 10) }
         }
+        intent.putExtra("tipoJuego", "Nivel $nivel")
+        intent.putExtra("nombrePerfil", intent.getStringExtra("nombrePerfil") ?: "Sin perfil")
         startActivity(intent)
     }
 }

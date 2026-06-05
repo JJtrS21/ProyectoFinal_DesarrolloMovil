@@ -48,11 +48,13 @@ class Modos : AppCompatActivity() {
 
         btnNiveles.setOnClickListener {
             val intent = Intent(this, NivelesActivity::class.java)
+            intent.putExtra("nombrePerfil", nombrePerfil)
             startActivity(intent)
         }
 
         btnPersonalizado.setOnClickListener {
             val intent = Intent(this, FormularioActivity::class.java)
+            intent.putExtra("nombrePerfil", nombrePerfil)
             startActivity(intent)
         }
     }
