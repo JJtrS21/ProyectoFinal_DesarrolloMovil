@@ -200,7 +200,7 @@ class FormularioActivity : AppCompatActivity() {
                     Operaciones – Operaciones directas como "3 + 5 = ?"
                     Problemas – Problemas con historia como "Pepito tenía 3 manzanas y regaló 2. ¿Cuántas le quedan?"
                     
-                    💡 CONSEJO: Durante el juego, toca la burbuja de diálogo del zorrito para escuchar de nuevo la pregunta.
+                    💡 CONSEJO: Durante el juego, toca la burbuja de diálogo de la ardilla para escuchar de nuevo la pregunta.
                     """.trimIndent()
                 )
                 .setPositiveButton("¡ENTENDIDO!") { dialog, _ -> dialog.dismiss() }
